@@ -1,11 +1,11 @@
-module github.com/orc-analytics/orca/cli
+module github.com/orc-analytics/cli
 
 go 1.24.0
 
 require (
 	github.com/charmbracelet/lipgloss v1.1.0
 	github.com/muesli/termenv v0.16.0
-	github.com/orc-analytics/orca/core v0.0.0-20251203110113-9e9cf3ddd2be
+	github.com/orc-analytics/core v0.11.0-rc.a2238d2
 	google.golang.org/grpc v1.77.0
 )
 
