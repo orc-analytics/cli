@@ -350,23 +350,6 @@ func getContainerPort(containerName string, internalPort int) string {
 	return strconv.Itoa(internalPort)
 }
 
-// getContainerIP returns the IP address of a container
-func getContainerIP(containerName string) string {
-	cmd := exec.Command(
-		"docker",
-		"inspect",
-		"--format",
-		"{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}",
-		containerName,
-	)
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		return ""
-	}
-
-	return strings.TrimSpace(string(output))
-}
-
 // stopContainers stops all running containers related to Orca
 func stopContainers() {
 	for _, containerName := range orcaContainers {
@@ -497,22 +480,6 @@ func checkDockerInstalled() {
 		fmt.Println(infoStyle.Render("Please start the Docker service before continuing."))
 		os.Exit(1)
 	}
-}
-
-func getNetworkGatewayIP() string {
-	cmd := exec.Command(
-		"docker",
-		"network",
-		"inspect",
-		networkName,
-		"--format='{{range .IPAM.Config}}{{.Gateway}}{{end}}'",
-	)
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		fmt.Println(errorStyle.Render("ERROR: Issue grabbing the gateway IP of the orca network"))
-		return ""
-	}
-	return string(output)
 }
 
 func toCamelCase(s string) string {

@@ -10,11 +10,6 @@ import (
 )
 
 var (
-	// Muted violet headline
-	headerStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#a387c4")). // soft lavender
-			Bold(true).
-			Underline(true)
 
 	// Soft blue subheadings
 	subHeaderStyle = lipgloss.NewStyle().
@@ -116,44 +111,4 @@ func renderSuccess(text string) string {
 
 func renderError(text string) string {
 	return safeRender(errorStyle, text)
-}
-
-func renderWarning(text string) string {
-	return safeRender(warningStyle, text)
-}
-
-func renderInfo(text string) string {
-	return safeRender(infoStyle, text)
-}
-
-func renderHeader(text string) string {
-	return safeRender(headerStyle, text)
-}
-
-func renderSubHeader(text string) string {
-	return safeRender(subHeaderStyle, text)
-}
-
-// debugColorProfile prints current color profile information for debugging
-func debugColorProfile() {
-	fmt.Printf("TERM: %s\n", os.Getenv("TERM"))
-	fmt.Printf("COLORTERM: %s\n", os.Getenv("COLORTERM"))
-	fmt.Printf("NO_COLOR: %s\n", os.Getenv("NO_COLOR"))
-	fmt.Printf("CI: %s\n", os.Getenv("CI"))
-
-	profile := lipgloss.ColorProfile()
-	var profileName string
-	switch profile {
-	case termenv.Ascii:
-		profileName = "Ascii (no colors)"
-	case termenv.ANSI:
-		profileName = "ANSI (16 colors)"
-	case termenv.ANSI256:
-		profileName = "ANSI256 (256 colors)"
-	case termenv.TrueColor:
-		profileName = "TrueColor (24-bit)"
-	default:
-		profileName = "Unknown"
-	}
-	fmt.Printf("Color Profile: %s\n", profileName)
 }
