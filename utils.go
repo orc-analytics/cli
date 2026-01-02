@@ -276,14 +276,15 @@ func showStatus() {
 		conn := fmt.Sprintf("localhost:%s", orcaPort)
 		fmt.Println("Connection string: " + conn)
 		fmt.Println()
-		fmt.Println(
-			"Set these environment variables in your Orca processors to connect to Orca:",
-		)
-		fmt.Println("\tORCA_CORE=" + conn)
-		fmt.Println("\tPROCESSOR_ADDRESS=host.docker.internal:<your-processor-port>")
-		fmt.Println()
-		fmt.Println("\tOptional - Override the port Orca uses to contact your processor:")
-		fmt.Println("\tPROCESSOR_EXTERNAL_PORT=<custom-external-port>")
+		fmt.Println("Run `orca init` to initialise an orca processor.")
+		// fmt.Println(
+		// 	"Set these environment variables in your Orca processors to connect to Orca:",
+		// )
+		// fmt.Println("\tORCA_CORE=" + conn)
+		// fmt.Println("\tPROCESSOR_ADDRESS=host.docker.internal:<your-processor-port>")
+		// fmt.Println()
+		// fmt.Println("\tOptional - Override the port Orca uses to contact your processor:")
+		// fmt.Println("\tPROCESSOR_EXTERNAL_PORT=<custom-external-port>")
 	}
 }
 
