@@ -2,7 +2,7 @@
 
 set -e
 
-REPO="orc-analytics/cli"
+REPO="orc-analytics/CLI"
 INSTALL_NAME="orca"
 USE_RC=false
 
@@ -79,15 +79,23 @@ detect_os() {
 get_latest_version() {
   if [ "$USE_RC" = true ]; then
     echo "Fetching latest Orca CLI release candidate..."
-    # Get all releases including pre-releases, filter for RC versions
-    LATEST_VERSION=$(curl -s https://api.github.com/repos/${REPO}/releases | \
-      jq -r '[.[] | select(.prerelease == true) | .tag_name] | first')
+    # get all releases including pre-releases, filter for RC versions
+    LATEST_VERSION=$(curl -s https://api.github.com/repos/{$REPO}/releases | \
+      grep -B 20 '"prerelease": true' | \
+      grep '"tag_name"' | \
+      head -n 1 | \
+      sed 's/.*"tag_name": "\([^"]*\)".*/\1/')
   else
     echo "Fetching latest stable Orca CLI version..."
     # Get latest stable release (non-prerelease)
-    LATEST_VERSION=$(curl -s https://api.github.com/repos/${REPO}/releases | \
-      jq -r '[.[] | select(.prerelease == false) | .tag_name] | first')
+    LATEST_VERSION=$(curl -s https://api.github.com/repos/{$REPO}/releases | \
+      grep -B 20 '"prerelease": false' | \
+      grep '"tag_name"' | \
+      head -n 1 | \
+      sed 's/.*"tag_name": "\([^"]*\)".*/\1/')
   fi
+    
+  echo "$LATEST_VERSION"
   
   if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
     echo "Failed to retrieve latest version"
